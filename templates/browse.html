@@ -28,6 +28,9 @@
 	          <li><a href="/">Home</a></li>
 	          <li class="active"><a href="browse">Browse</a></li>
 	        </ul>
+	        <ul class="nav navbar-nav navbar-right">
+	        	<li><a href="signin">Sign In</a></li>
+	        </ul> 
 	      </div>
 	    </div>
     </nav>
@@ -118,15 +121,17 @@
               <th>Title:</th>
               <th>Organization:</th>
               <th>Current Bid:</th>
+              <th>Details & Bidding:</th>
             </tr>
           </thread>
           <tbody>
             {% for item in bids %}
             <tr>
-              <td>{{item.pic}}</td>
+              <td><img src="{{item.pic}}" height="100px" width="100px"></td>
               <td>{{item.title}}</td>
-              <td>{{item.org}}</td>
-              <td>{{item.bid}}</td>
+              <td>{{item.organization}}</td>
+              <td>{{item.currentbid}}</td>
+              <td><a href="details/{{item.id}}">See More</a></td>
             </tr>
             {% endfor %}
           </tbody>
