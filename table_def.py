@@ -6,6 +6,23 @@ from sqlalchemy.orm import relationship, backref
 
 engine = create_engine('sqlite:///bids.db', echo=True)
 Base = declarative_base()
+
+class Users(Base):
+	""""""
+	__tablename__ = "users"
+	
+	id = Column(Integer, primary_key=True)
+	username = Column(String)
+	password = Column(String)
+	name = Column(String)
+	
+	def __init__(self, user_name, password, name):
+		""""""
+		self.username = user_name
+		self.password = password
+		self.name = name
+	
+	
  
 class Bids(Base):
 	""""""

@@ -3,6 +3,7 @@
   <head>
   	<title>CharityBidder</title>
   	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.js"></script>
+  
     <!-- Bootstrap -->
     <link href="{{ url_for('static', filename="css/bootstrap.min.css") }}" rel="stylesheet">
     <link href="{{ url_for('static', filename="js/bootstrap.js") }}" rel="stylesheet">
@@ -66,9 +67,28 @@
     <input type="password" class="form-control" id="confirmInputPassword1" placeholder="Password">
   </div>
   
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <button id = "submit" type = "button" class="btn btn-primary">Submit</button>
+  
 </form>
 	</div>
 	</div>
-	</body>
+<script>
+		$( "#submit").click(function(e) {
+	var uname = $( "#exampleInputEmail1" ).val();
+    var pword = $( "#exampleInputPassword1" ).val();
+    var n = $( "#fname" ).val() + " " + $( "#lname" ).val();
+    
+	$.ajax({
+            url: "/signin",
+            type: "POST",
+            
+            data: { username: uname, password: pword, name: n},
+            success: function(data) {
+				console.log("The server returned the following data:");
+				window.location.href="/signin";
+            }
+        });
+  });
+</script>
+</body>
 </html>
