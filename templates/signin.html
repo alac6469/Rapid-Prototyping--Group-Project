@@ -53,19 +53,43 @@
 		    </div>
 		    <br>
 		    <div align="center">
-		    	<button type="submit" class="btn btn-primary">Submit</button>
+		    	<button type="button" id="submit" class="btn btn-primary">Submit</button>
 		    </div>
 		  </div>
 	    </form>
 	  </div>
 	  <div class="col-md-6">
-	  	<br>
-	  	<br>
 	  	<div align="center">
 	  		<h2>Don't have an account?</h2>
+	  		<br>
+	  		<br>
 	  		<a href="register"><button class="btn btn-lg">Register Today!</button></a>
 	  	</div>
 	  </div>
 	</div>
+	<script>
+		$( "#submit").click(function(e) {
+			var uname = $( "#email" ).val();
+    		var pword = $( "#password" ).val();
+ 		$.ajax({
+            url: "/verifyuser",
+            type: "POST",
+            
+            data: { username: uname, password: pword},
+            success: function(data) {
+				alert(data);
+				if(data == "Invalid username or password")
+				{
+					window.location.href="/signin";
+				}
+				else
+				{
+					window.location.href="/";
+				}
+            }
+        });
+  });
+</script>
 	</body>
 </html>
+
