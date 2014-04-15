@@ -114,13 +114,33 @@ def verifyuser():
 @app.route('/profile')
 def profile():
     global user
-    return render_template('profile.html', user = user)
+    userBids = Bids.query.filter_by(seller = user)
+    
+    return render_template('profile.html', user = user, bids = userBids)
 
 @app.route('/create')
 def create():
     global user
     return render_template('create.html', user = user)
 
+@app.route('/addbid', methods = ['POST', 'GET'])
+def addbid():
+    global user
+    if request.method == 'POST':
+		if user == None:
+			return "Please signin"
+		#gather reuqest data
+		title = request.form['title']
+		description = request.form['description']
+		organization = request.form['organization']
+		currentbid = request.form['startbid']
+		pic = request.form['pic']
+		seller = user
+		#create a new bid and add it to the data base
+		new_bid = Bids(title, organization, currentbid, seller, pic)
+		db.session.add(new_bid)
+		db.session.commit()
+		return "Your bid was added"
 
 if __name__ == "__main__":
     app.run(debug=True)

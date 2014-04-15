@@ -45,6 +45,32 @@
     		<h3>Your current bids:</h3>
     		<br>
     		<hr>
+    		<div class="row">
+      <div class="col-md-1"></div>
+      <div class="col-md-10">
+        <table class="table table-hover">
+          <thread>
+            <tr>
+              <th>Picture:</th>
+              <th>Title:</th>
+              <th>Organization:</th>
+              <th>Current Bid:</th>
+              <th>Details & Bidding:</th>
+            </tr>
+          </thread>
+          <tbody>
+            {% for item in bids %}
+            <tr>
+              <td><img src="{{item.pic}}" height="100px" width="100px"></td>
+              <td>{{item.title}}</td>
+              <td>{{item.organization}}</td>
+              <td>{{item.currentbid}}</td>
+              <td><a href="details/{{item.id}}">See More</a></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
 			<br>
     		<a href="create"><button type="button" class="btn btn-primary btn-lg">Create a new Bid!</button></a>
     	</div>
