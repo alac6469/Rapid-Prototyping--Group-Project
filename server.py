@@ -35,13 +35,18 @@ class Bids(db.Model):
     currentbid = db.Column(db.Integer)
     seller = db.Column(db.String)
     pic = db.Column(db.String)
+    description = db.Column(db.String)
+    highestbidder = db.Column(db.Integer)
+    
 
-    def __init__(self, title, organization, currentbid, seller, pic):
+    def __init__(self, title, organization, currentbid, seller, pic, description, bidder):
         self.title = title
         self.organization = organization
         self.currentbid = currentbid
         self.seller = seller
         self.pic = pic
+        self.description = description
+        self.highestbidder = bidder
 
 
 @app.route('/')
@@ -57,6 +62,7 @@ def echo():
 def browse():
     global user
     bidsData = Bids.query.all()
+    pprint(bidsData)
     return render_template('browse.html', bids = bidsData, user = user)
 
 @app.route('/register')
@@ -122,6 +128,15 @@ def profile():
 def create():
     global user
     return render_template('create.html', user = user)
+    
+@app.route('/details/<id>')
+def details(id = None):
+	global user
+	bid = Bids.query.filter_by( id = id).first()
+	print bid.title
+	return render_template('details.html', user = user, item = bid)
+	
+	
 
 @app.route('/addbid', methods = ['POST', 'GET'])
 def addbid():
@@ -137,10 +152,30 @@ def addbid():
 		pic = request.form['pic']
 		seller = user
 		#create a new bid and add it to the data base
-		new_bid = Bids(title, organization, currentbid, seller, pic)
+		new_bid = Bids(title, organization, currentbid, seller, pic,description, currentbid )
 		db.session.add(new_bid)
 		db.session.commit()
 		return "Your bid was added"
+@app.route('/updatebid', methods = ['POST', 'GET'])
+def updatebid():
+    global user
+    if request.method == 'POST':
+		if user == None:
+			return "Please signin"
+		bid = int(request.form['bid'])
+		id = request.form['id']
+		item = Bids.query.filter_by( id = id).first()
+		print type(bid)
+		print type(item.currentbid)
+		
+		if bid <= item.currentbid :
+			return "Too low"
+		else :
+			item.currentbid = bid
+			item.highestbidder = user
+			db.session.commit()
+			return " You are the highest bidder!"
+
 
 if __name__ == "__main__":
     app.run(debug=True)

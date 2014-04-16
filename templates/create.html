@@ -6,6 +6,8 @@
     <!-- Bootstrap -->
     <link href="{{ url_for('static', filename="css/bootstrap.min.css") }}" rel="stylesheet">
     <link href="{{ url_for('static', filename="js/bootstrap.js") }}" rel="stylesheet">
+    <script type=text/javascript src="{{
+  url_for('static', filename='js/bootstrap.js') }}"></script>
 	</head>
 	<body>
 		<div align="center">
@@ -60,7 +62,7 @@
     		<input type="text" class="form-control" id="startbid" placeholder="Enter starting bid amount">
     		<h4>Picture URL:</h4>
 			<form class="form-inline" role="form">
-				<input type="text" class="form-control" id="pic" placeholder="Enter starting bid amount">
+				<input type="text" class="form-control" id="pic" placeholder="Enter URL">
 				<button type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="left" 
 					data-content="Our current servers are limited on space. Please post images elsewhere and paste the URL here">
 					Info?
@@ -69,6 +71,7 @@
     	</div>
     	<div align="center">
 		    	<button type="button" id="submit" class="btn btn-primary">Submit</button>
+		    </div>
 		    </div>
     	<script>
 		$( "#submit").click(function(e) {
@@ -101,7 +104,7 @@
             }
         });
   });
-</script></div>
+</script>
     
     
     

@@ -34,9 +34,11 @@ class Bids(Base):
 	currentbid = Column(Integer)
 	seller = Column(String)
 	pic = Column(String)
+	description = Column(String)
+	highestbidder = Column(Integer)
  
  
-	def __init__(self, title, organization, currentbid, seller, pic):
+	def __init__(self, title, organization, currentbid, seller, pic, description, bidder):
 		""""""
 
 		self.title = title
@@ -44,5 +46,7 @@ class Bids(Base):
 		self.currentbid = currentbid
 		self.seller = seller
 		self.pic = pic
-
+		self.description = description
+		self.highestbidder = bidder
+		
 Base.metadata.create_all(engine)
