@@ -133,7 +133,7 @@ def create():
 def details(id = None):
 	global user
 	bid = Bids.query.filter_by( id = id).first()
-	print bid.title
+	
 	return render_template('details.html', user = user, item = bid)
 	
 	
