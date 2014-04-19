@@ -48,13 +48,13 @@
     		<div class="col-md-4">
     			<div class="checkbox">
 					  <label>
-					    <input type="checkbox" value="">
+					    <input id="united" type="checkbox" value="unitedway">
 					    United Way
 					  </label>
 					</div>
 					<div class="checkbox">
 					  <label>
-					    <input type="checkbox" value="">
+					    <input id="salvation" type="checkbox" value="salvationarmy">
 					    Salvation Army
 					  </label>
 					</div>
@@ -62,13 +62,13 @@
 				<div class="col-md-4">
     			<div class="checkbox">
 					  <label>
-					    <input type="checkbox" value="">
+					    <input id="taskforce" type="checkbox" value="taskforceglobalhealth">
 					    Task Force for Global Health
 					  </label>
 					</div>
 					<div class="checkbox">
 					  <label>
-					    <input type="checkbox" value="">
+					    <input id="feeding" type="checkbox" value="feedingamerica">
 					    Feeding America
 					  </label>
 					</div>
@@ -76,13 +76,13 @@
 				<div class="col-md-4">
     			<div class="checkbox">
 					  <label>
-					    <input type="checkbox" value="">
+					    <input id="catholic" type="checkbox" value="catholiccharities">
 					    Catholic Charities USA
 					  </label>
 					</div>
 					<div class="checkbox">
 					  <label>
-					    <input type="checkbox" value="">
+					    <input id="goodwill" type="checkbox" value="goodwill">
 					    Goodwill Industries International
 					  </label>
 					</div>
@@ -90,10 +90,10 @@
 			</div>
     	<div class="row">
     		<div class="col-md-6">
-    			<input class="form-control input-lg" type="text" placeholder="Search">
+    			<input class="form-control input-lg" id="search" type="text" placeholder="Search">
     		</div>
     		<div class="col-md-3">
-    			<select class="form-control input-lg">
+    			<select class="form-control input-lg" id="category">
 					  <option>All Categories</option>
 					  <option>Antiques</option>
 					  <option>Art</option>
@@ -109,7 +109,7 @@
 					</select>
 				</div>
 				<div class="col-md-3">
-					<button type="button" class="btn btn-primary btn-lg">Search</button>
+					<button type="button" id="submit" class="btn btn-primary btn-lg">Search</button>
 				</div>
 			</div>
     </div>
@@ -117,5 +117,28 @@
     <div align="center">
     	<h2>Current Hot Bids:</h2>
     </div>
+    <script>
+		$( "#submit").click(function(e) {
+			var search = $( "#search" ).val();
+    		var org1 = $( "#united" ).val();
+    		var org2 = $( "#salvation").val();
+    		var org3 = $( "#taskforce").val();
+    		var org4 = $( "#catholic").val();
+    		var org5 = $( "#feeding").val();
+    		var org6 = $( "#goodwill").val();
+    		var cat = $( "#category" ).val();
+    
+	$.ajax({
+            url: "/browse",
+            type: "POST",
+            
+            data: { searchquery: search, o1: org1, o2: org2, o3: org3, o4: org4, o5: org5, o6: org6, category: cat},
+            success: function(data) {
+				console.log("The server returned the following data:");
+				window.location.href="/browse";
+            }
+        });
+  });
+</script>
 	</body>
 </html>

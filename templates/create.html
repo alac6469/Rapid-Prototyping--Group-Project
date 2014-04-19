@@ -60,6 +60,20 @@
                   </select>
     		<h4>Starting Bid:</h4>
     		<input type="text" class="form-control" id="startbid" placeholder="Enter starting bid amount">
+    		<h4>Category:</h4>
+    		<select class="form-control input-lg" id="category">
+				<option>Antiques</option>
+				<option>Art</option>
+				<option>Books</option>
+				<option>Camera & Photo</option>
+				<option>Clothing</option>
+				<option>Computers & Electronics</option>
+				<option>Home & Garden</option>
+				<option>Jewelry</option>
+				<option>Sporting Goods</option>
+				<option>Real Estate</option>
+				<option>Other</option>
+			</select>
     		<h4>Picture URL:</h4>
 			<form class="form-inline" role="form">
 				<input type="text" class="form-control" id="pic" placeholder="Enter URL">
@@ -80,13 +94,14 @@
     		var o = $( "#organization" ).val();
     		var b = $( "#startbid" ).val();
     		var p = $( "#pic" ).val();
+    		var c = $( "#category" ).val();
     		
     		
  		$.ajax({
             url: "/addbid",
             type: "POST",
             
-            data: { title: t, description: d, organization: o, startbid: b, pic: p},
+            data: { title: t, description: d, organization: o, startbid: b, pic: p, category: c},
             success: function(data) {
 				alert(data);
 				if(data == "Invalid entry")

@@ -15,6 +15,8 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///bids.db'
 db = SQLAlchemy(app)
 user = None
+search = None
+category = None
 app.debug = True
 
 class Users(db.Model):
@@ -37,9 +39,10 @@ class Bids(db.Model):
     pic = db.Column(db.String)
     description = db.Column(db.String)
     highestbidder = db.Column(db.Integer)
+    category = db.Column(db.String)
     
 
-    def __init__(self, title, organization, currentbid, seller, pic, description, bidder):
+    def __init__(self, title, organization, currentbid, seller, pic, description, bidder, category):
         self.title = title
         self.organization = organization
         self.currentbid = currentbid
@@ -47,6 +50,7 @@ class Bids(db.Model):
         self.pic = pic
         self.description = description
         self.highestbidder = bidder
+        self.category = category
 
 
 @app.route('/')
@@ -58,12 +62,28 @@ def landing():
 def echo():
     print "hello"
     
-@app.route('/browse')
+@app.route('/browse', methods = ['POST', 'GET'])
 def browse():
     global user
-    bidsData = Bids.query.all()
+    global search
+    global category
+    if request.method == 'POST':
+        search = request.form['searchquery']
+        #organization = request.form['organization']
+        category = request.form['category']
+        return 'updated category'
+    if (category == None and search == None):
+        bidsData = Bids.query.all()
+    elif (search == None and category != None):
+        bidsData = Bids.query.filter_by(category = category)
+    elif search != None and category == None:
+        bidsData = Bids.query.filter_by(title = search)
+    else:
+        bidsData = Bids.query.filter_by(category = category, title = search)
+
+
     pprint(bidsData)
-    return render_template('browse.html', bids = bidsData, user = user)
+    return render_template('browse.html', bids = bidsData, user = user, cat = category)
 
 @app.route('/register')
 def register():
@@ -136,26 +156,27 @@ def details(id = None):
 	
 	return render_template('details.html', user = user, item = bid)
 	
-	
-
 @app.route('/addbid', methods = ['POST', 'GET'])
 def addbid():
     global user
     if request.method == 'POST':
-		if user == None:
-			return "Please signin"
-		#gather reuqest data
-		title = request.form['title']
-		description = request.form['description']
-		organization = request.form['organization']
-		currentbid = request.form['startbid']
-		pic = request.form['pic']
-		seller = user
-		#create a new bid and add it to the data base
-		new_bid = Bids(title, organization, currentbid, seller, pic,description, currentbid )
-		db.session.add(new_bid)
-		db.session.commit()
-		return "Your bid was added"
+    	if user == None:
+    		return "Please signin"
+    	#gather reuqest data
+    	title = request.form['title']
+        description = request.form['description']
+    	organization = request.form['organization']
+    	currentbid = request.form['startbid']
+    	pic = request.form['pic']
+        category = request.form['category']
+        print category
+    	seller = user
+    	#create a new bid and add it to the data base
+    	new_bid = Bids(title, organization, currentbid, seller, pic,description, currentbid, category )
+    	db.session.add(new_bid)
+    	db.session.commit()
+    	return "Your bid was added"
+
 @app.route('/updatebid', methods = ['POST', 'GET'])
 def updatebid():
     global user
