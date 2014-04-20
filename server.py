@@ -64,26 +64,17 @@ def echo():
     
 @app.route('/browse', methods = ['POST', 'GET'])
 def browse():
+	organizations = []
     global user
-    global search
-    global category
-    if request.method == 'POST':
-        search = request.form['searchquery']
-        #organization = request.form['organization']
-        category = request.form['category']
-        return 'updated category'
-    if (category == None and search == None):
-        bidsData = Bids.query.all()
-    elif (search == None and category != None):
-        bidsData = Bids.query.filter_by(category = category)
-    elif search != None and category == None:
-        bidsData = Bids.query.filter_by(title = search)
-    else:
-        bidsData = Bids.query.filter_by(category = category, title = search)
+    if 'g' in request.args:
+		organization.append(request.args.get('g'))
+		
+    #if all none
+    bidsData = Bids.query.all()
 
 
     pprint(bidsData)
-    return render_template('browse.html', bids = bidsData, user = user, cat = category)
+    return render_template('browse.html', bids = bidsData, user = user,)
 
 @app.route('/register')
 def register():
