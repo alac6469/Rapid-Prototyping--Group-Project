@@ -3,6 +3,7 @@ from sqlalchemy import create_engine, ForeignKey
 from sqlalchemy import Column, Date, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, backref
+from datetime import datetime
 
 engine = create_engine('sqlite:///bids.db', echo=True)
 Base = declarative_base()
@@ -36,10 +37,11 @@ class Bids(Base):
 	pic = Column(String)
 	description = Column(String)
 	highestbidder = Column(Integer)
+	bidtime = Column(DateTime)
 	category = Column(String)
  
  
-	def __init__(self, title, organization, currentbid, seller, pic, description, bidder, category):
+	def __init__(self, title, organization, currentbid, seller, pic, description, bidder, category,bidtime = None):
 		""""""
 
 		self.title = title
@@ -50,5 +52,6 @@ class Bids(Base):
 		self.description = description
 		self.highestbidder = bidder
 		self.category = category
+		self.bidtime = bidtime
 		
 Base.metadata.create_all(engine)

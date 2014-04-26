@@ -77,16 +77,23 @@
 	var uname = $( "#exampleInputEmail1" ).val();
     var pword = $( "#exampleInputPassword1" ).val();
     var n = $( "#fname" ).val() + " " + $( "#lname" ).val();
-    
+    var cpword = $( "#confirmInputPassword1" ).val();
 	$.ajax({
             url: "/signin",
             type: "POST",
-            
-            data: { username: uname, password: pword, name: n},
+            data: { username: uname, password: pword, name: n, conf: cpword},
             success: function(data) {
-				console.log("The server returned the following data:");
-				window.location.href="/signin";
-            }
+				alert(data);
+				if(data == "Passwords Don't match")
+				{
+					window.location.href="/register";
+				}
+				
+				else
+				{
+					window.location.href="/";
+				}
+			}	
         });
   });
 </script>
