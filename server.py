@@ -36,7 +36,7 @@ class Bids(db.Model):
     seller = db.Column(db.String)
     pic = db.Column(db.String)
     description = db.Column(db.String)
-    highestbidder = db.Column(db.Integer)
+    highestbidder = db.Column(db.String)
     bidtime = db.Column(db.DateTime)
     category = db.Column(db.String)
     
