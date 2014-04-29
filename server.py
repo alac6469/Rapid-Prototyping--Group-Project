@@ -104,7 +104,7 @@ def browse():
     elif cat == None and title != None and organizations != None:
         bidsData = db.engine.execute("SELECT * FROM bids where " + orgslist +  " and title = '" + title + "'")
     elif cat != None and title == None and organizations != None:
-        bidsData = db.engine.execute("SELECT * FROM bids where '" + orgslist + "' and category = '" + cat + "'")
+        bidsData = db.engine.execute("SELECT * FROM bids where " + orgslist + " and category = '" + cat + "'")
     elif cat == None and title == None and organizations != None:
         bidsData = db.engine.execute("SELECT * FROM bids where " + orgslist)
      
