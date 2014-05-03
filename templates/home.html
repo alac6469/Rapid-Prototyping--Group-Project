@@ -6,12 +6,46 @@
     <!-- Bootstrap -->
     <link href="{{ url_for('static', filename="css/bootstrap.min.css") }}" rel="stylesheet">
     <link href="{{ url_for('static', filename="js/bootstrap.js") }}" rel="stylesheet">
+    <style>
+    html, body {
+      height: 100%;
+      width: 100%;
+      padding: 0;
+      margin: 0;
+    }
+
+    #bg-image {
+      z-index: -999;
+      min-height: 100%;
+      min-width: 1024px;
+      width: 100%;
+      height: auto;
+      position: fixed;
+      top: 0;
+      left: 0;
+    }
+    #nav {  
+    background-image: linear-gradient(to top, black, #808080); 
+    min-height: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+    }
+    .welcome{
+      color:#0000CD;
+      letter-spacing: 0.1em
+    }
+    #title {
+      letter-spacing: 0.1em
+    }
+    </style>
 	</head>
 	<body>
+    <img alt="full screen background image" src="http://walls-world.com/wp-content/uploads/2013/08/3D-White-Wallpaper.jpeg" id="bg-image" /> 
+    <div id="wrapper">
 		<div align="center">
-			<h1>Charity Bidder</h1>
+			<h1 id="title">Charity Bidder</h1>
 		</div>
-		<nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+		<nav class="navbar navbar-inverse navbar-static-top" id="nav" role="navigation">
 			<div class="container">
 	      <div class="navbar-header">
 	        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -40,13 +74,25 @@
     </nav>
     <div class="container">
     	<div align="center">
-    		<h2>Welcome to Charity Bidder!</h4>
-    		<p><b>Where you can sell and bid on things to raise money for charity organizations</b></p>
+        <div class="row">
+          <div class="col-md-2"></div>
+          <div class="col-md-8">
+        <div class="well well-sm" id="well">
+    		<h2 class="welcome"><b>Welcome to Charity Bidder!</b></h4>
+    		<p class="welcome"><b>Where you can sell and bid on things to raise money for charity organizations</b></p>
+        </div>
+      </div>
     	</div>
     </div>
     <hr>
     <div align="center">
-    	<h2>Current Hot Bids:</h2>
+      <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+      
+    	  <h2 class="welcome"><b>Current Hot Bids:</b></h2>
+      
+    </div>
     </div>
     <div class="row">
       <div class="col-md-1"></div>
@@ -67,13 +113,14 @@
               <td><img src="{{item.pic}}" height="100px" width="100px"></td>
               <td>{{item.title}}</td>
               <td>{{item.organization}}</td>
-              <td>{{item.currentbid}}</td>
+              <td>${{item.currentbid}}</td>
               <td><a href="details/{{item.id}}">See More</a></td>
             </tr>
             {% endfor %}
           </tbody>
         </table>
       </div>
+    </div>
     <script>
 		$( "#submit").click(function(e) {
 			var search = $( "#search" ).val();

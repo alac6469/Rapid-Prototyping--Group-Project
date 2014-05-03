@@ -6,12 +6,41 @@
     <!-- Bootstrap -->
     <link href="{{ url_for('static', filename="css/bootstrap.min.css") }}" rel="stylesheet">
     <link href="{{ url_for('static', filename="js/bootstrap.js") }}" rel="stylesheet">
+    <style>
+    html, body {
+      height: 100%;
+      width: 100%;
+      padding: 0;
+      margin: 0;
+    }
+
+    #bg-image {
+      z-index: -999;
+      min-height: 100%;
+      min-width: 1024px;
+      width: 100%;
+      height: auto;
+      position: fixed;
+      top: 0;
+      left: 0;
+    }
+    #nav {  
+    background-image: linear-gradient(to top, black, #808080); 
+    min-height: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+    }
+    #title {
+      letter-spacing: 0.1em
+    }
+    </style>
 	</head>
 	<body>
+		<img alt="full screen background image" src="http://walls-world.com/wp-content/uploads/2013/08/3D-White-Wallpaper.jpeg" id="bg-image" />
 		<div align="center">
-			<h1>Charity Bidder</h1>
+			<h1 id="title">Charity Bidder</h1>
 		</div>
-		<nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+		<nav class="navbar navbar-inverse navbar-static-top" id="nav" role="navigation">
 			<div class="container">
 	      <div class="navbar-header">
 	        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -39,14 +68,15 @@
 	  	<div align="center">
 	  		<h2>Sign In:</h2>
 	  	</div>
+	  	<br>
 		<form role="form">  
 		  <div class="form-group">
 		  	<div class="row">
-		  		<div class="col-md-4 col-md-offset-4">
+		  		<div class="col-md-5 col-md-offset-4">
 
 					<label for="email">Email:</label>
 				    <input type="text" class="form-control" id="email" placeholder="Enter email address">
-				    
+				    <br>
 					<label for="password">Password:</label>
 				    <input type="password" class="form-control" id="password" placeholder="Enter password">
 				</div>
@@ -63,7 +93,8 @@
 	  		<h2>Don't have an account?</h2>
 	  		<br>
 	  		<br>
-	  		<a href="register"><button class="btn btn-lg">Register Today!</button></a>
+	  		<br>
+	  		<a href="register"><button class="btn btn-lg btn-primary">Register Today!</button></a>
 	  	</div>
 	  </div>
 	</div>
@@ -92,4 +123,3 @@
 </script>
 	</body>
 </html>
-

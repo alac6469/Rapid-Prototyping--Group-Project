@@ -6,12 +6,44 @@
     <!-- Bootstrap -->
     <link href="{{ url_for('static', filename="css/bootstrap.min.css") }}" rel="stylesheet">
     <link href="{{ url_for('static', filename="js/bootstrap.js") }}" rel="stylesheet">
+    <style>
+    img{
+    	max-width: 100%;
+    }
+    html, body {
+      height: 100%;
+      width: 100%;
+      padding: 0;
+      margin: 0;
+    }
+
+    #bg-image {
+      z-index: -999;
+      min-height: 100%;
+      min-width: 1024px;
+      width: 100%;
+      height: auto;
+      position: fixed;
+      top: 0;
+      left: 0;
+    }
+    #nav {  
+    background-image: linear-gradient(to top, black, #808080); 
+    min-height: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+    }
+    #title {
+      letter-spacing: 0.1em
+    }
+    </style>
 	</head>
 	<body>
+		<img alt="full screen background image" src="http://walls-world.com/wp-content/uploads/2013/08/3D-White-Wallpaper.jpeg" id="bg-image" />
 		<div align="center">
-			<h1>Charity Bidder</h1>
+			<h1 id="title">Charity Bidder</h1>
 		</div>
-		<nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+		<nav class="navbar navbar-inverse navbar-static-top" id="nav" role="navigation">
 			<div class="container">
 	      <div class="navbar-header">
 	        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -39,27 +71,31 @@
 	    </div>
     </nav>
     <div class="container">
-    	<div class="col-md-4">
+    	<div class="col-md-4 col-md-offset-1">
 		<img height="400px" width="300px" src= {{item.pic}}>
 	</div>
-	<div class="col-md-8">
+	<div class="col-md-6">
 		<div class="panel panel-default">
               		<div class="panel-heading">
-                	<h3 class="panel-title"> {{item.title}} </h3>
+                	<h3 class="panel-title">Title: {{item.title}} </h3>
               		</div>
 			<div class="panel-body">
 			
-			<p> Current Bid: {{item.currentbid}}
+			<p> <b>Current Bid:</b> ${{item.currentbid}}
+				<br><b>Highest Bidder:</b> {{item.highestbidder}}<br>
+				<p><b>Beat the current bid:</b></p>
+
 			<div class="col-md-6">
 				<input class="form-control input-sm" id = "bid" type="text" placeholder="Enter Bid">
 			</div>
 			<div class="col-md-6">
 				<button type="button" id = "submit" class="btn btn-primary btn-md">Place Bid</button>
 			</div>
-			<div class="col-md-12">
-				<p> Details: {{item.description}} </p>
-				<p> Category: {{item.category}} </p>
-			</div>
+			<br>
+				<br>
+				<p><b> Details:</b>  {{item.description}} </p>
+				<p><b> Category:</b> {{item.category}} </p>
+			
 			</div>
 		</div>
 	</div>
